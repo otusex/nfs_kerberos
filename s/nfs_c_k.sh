@@ -83,7 +83,7 @@ EOF
 
 # Generatee FSTAB
 cat << EOF >> /etc/fstab
-server.net:/share /share nfs  nfsvers=3,_netdev,sec=krb5   0 0
+server.net:/share /share nfs  nfsvers=3,_netdev,sec=krb5p   0 0
 EOF
 
 # Reboot service

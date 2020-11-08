@@ -129,14 +129,20 @@ EOF
 
 # Gen exports
 cat << EOF > /etc/exports
-/share client.net(rw,sync,no_subtree_check,no_root_squash,sec=krb5)
+/share client.net(rw,sync,no_subtree_check,no_root_squash,sec=sys:krb5:krb5i:krb5p)
 EOF
 
 # Create shared folder
 mkdir /share
 
+# Set nfsnobody group
+chgrp nfsnobody /share
+chmod g+w /share
+restorecon -Rv /share
+
 # Exporting
 exportfs -a
+exportfs -r
 
 # Disable vers2, vers4.x
 cat << EOF > /etc/nfs.conf
@@ -160,6 +166,7 @@ systemctl restart nfslock
 systemctl enable rpcbind
 systemctl enable nfs
 systemctl enable nfslock
+systemctl restart nfs-secure
 
 
 # Gen Firewall rules
