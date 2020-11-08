@@ -129,7 +129,7 @@ EOF
 
 # Gen exports
 cat << EOF > /etc/exports
-/share client.net(rw,no_root_squash,sec=krb5)
+/share client.net(rw,sync,no_subtree_check,no_root_squash,sec=krb5)
 EOF
 
 # Create shared folder
